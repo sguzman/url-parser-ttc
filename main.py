@@ -30,7 +30,7 @@ class Course:
             self.arg1,
             ',,',
             self.arg2,
-            ',.mp4.csmil/segment'"{$ii}"'_0_av.ts?set-akamai-hls-revision=5&hdntl=exp=',
+            ',.mp4.csmil/segment\'"$ii"\'_0_av.ts?set-akamai-hls-revision=5&hdntl=exp=',
             self.exp,
             '~acl=/i/The_Teaching_Company/',
             self.dir1,

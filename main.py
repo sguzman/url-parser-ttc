@@ -17,7 +17,7 @@ class Course:
         self.hmac: str = hmac
 
     def build_url(self):
-        return f'https://tpr307389def-vh.akamaihd.net/i/The_Teaching_Company/{self.dir1}/{self.dir2}/4790_{self.index:02d},{self.arg1},,{self.arg2},.mp4.csmil/segment{{$ii}}_0_av.ts?set-akamai-hls-revision=5&hdntl=exp={self.exp}~acl=/i/The_Teaching_Company/564/895/4790_02*~data=hdntl~hmac={self.hmac}'
+        return f"""https://tpr307389def-vh.akamaihd.net/i/The_Teaching_Company/{self.dir1}/{self.dir2}/4790_{self.index:02d},{self.arg1},,{self.arg2},.mp4.csmil/segment'"{{$ii}}"'_0_av.ts?set-akamai-hls-revision=5&hdntl=exp={self.exp}~acl=/i/The_Teaching_Company/564/895/4790_02*~data=hdntl~hmac={self.hmac}"""
 
     def output_fish_script(self):
         return f"""

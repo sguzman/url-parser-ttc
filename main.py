@@ -17,7 +17,21 @@ class Course:
         self.hmac: str = hmac
 
     def build_url(self):
-        return f'https://tpr307389def-vh.akamaihd.net/i/The_Teaching_Company/{self.dir1}/{self.dir2}/4790_{self.index:01d},{self.arg1},,{self.arg2},.mp4.csmil/segment{self.leng}_0_av.ts?set-akamai-hls-revision=5&hdntl=exp={self.exp}~acl=/i/The_Teaching_Company/564/895/4790_02*~data=hdntl~hmac={self.hmac} '
+        return f'https://tpr307389def-vh.akamaihd.net/i/The_Teaching_Company/{self.dir1}/{self.dir2}/4790_{self.index:01d},{self.arg1},,{self.arg2},.mp4.csmil/segment{{$ii}}_0_av.ts?set-akamai-hls-revision=5&hdntl=exp={self.exp}~acl=/i/The_Teaching_Company/564/895/4790_02*~data=hdntl~hmac={self.hmac} '
+
+    def output_fish_script(self):
+        return f"""
+for ii in (seq {self.leng})
+    http --continue --verbose --download --output "{self.index}_$ii.av.ts" '{self.build_url()}'
+end
+
+for ii in (seq {self.leng})
+    cat "{self.index}_$ii.av.ts"
+end > "{self.index}.ts"
+
+ffmpeg -i {self.index}.ts -acodec copy -vcodec copy {self.index}.mp4
+rm {self.index}*.ts
+        """
 
 
 def parse(url: str) -> Course:
@@ -49,7 +63,8 @@ def parse(url: str) -> Course:
 def main() -> None:
     for arg in sys.argv[1:]:
         result = parse(arg)
-        print(result)
+        output_fish_script: str = result.output_fish_script()
+        print(output_fish_script)
 
 
 if __name__ == '__main__':

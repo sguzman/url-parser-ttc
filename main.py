@@ -24,15 +24,23 @@ def parse(url: str) -> Course:
     temp: urllib.parse.ParseResult = urllib.parse.urlparse(url)
     path: str = temp.path
     split_path: List[str] = path.split('/')
+    split_args: List[str] = split_path[5].split(',')
+    index_temp: str = split_args[0].split('_')[1]
+    temp_length: str = split_path[-1]
+    temp_length2: str = temp_length.split('_')[0].lstrip('segment')
+    query: str = temp.query
+    split_query: List[str] = query.split('&')
+    split_query_eq: List[str] = split_query[1].split('=')
+    exp_temp: str = split_query_eq[2].split('~')[0]
 
-    dir1: str = ''
-    dir2: str = ''
-    index: int = 0
-    arg1: str = ''
-    arg2: str = ''
-    leng: int = 0
-    exp: str = ''
-    hmac: str = ''
+    dir1: str = split_path[3]
+    dir2: str = split_path[4]
+    index: int = int(index_temp)
+    arg1: str = split_args[1]
+    arg2: str = split_args[3]
+    leng: int = int(temp_length2)
+    exp: str = exp_temp
+    hmac: str = split_query_eq[5]
 
     obj: Course = Course(dir1=dir1, dir2=dir2, index=index, arg1=arg1, arg2=arg2, leng=leng, exp=exp, hmac=hmac)
     return obj

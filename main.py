@@ -17,12 +17,12 @@ class Course:
         self.hmac: str = hmac
 
     def build_url(self):
-        return f'https://tpr307389def-vh.akamaihd.net/i/The_Teaching_Company/{self.dir1}/{self.dir2}/4790_{self.index:02d},{self.arg1},,{self.arg2},.mp4.csmil/segment{{$ii}}_0_av.ts?set-akamai-hls-revision=5&hdntl=exp={self.exp}~acl=/i/The_Teaching_Company/564/895/4790_02*~data=hdntl~hmac={self.hmac} '
+        return f'https://tpr307389def-vh.akamaihd.net/i/The_Teaching_Company/{self.dir1}/{self.dir2}/4790_{self.index:02d},{self.arg1},,{self.arg2},.mp4.csmil/segment{{$ii}}_0_av.ts?set-akamai-hls-revision=5&hdntl=exp={self.exp}~acl=/i/The_Teaching_Company/564/895/4790_02*~data=hdntl~hmac={self.hmac}'
 
     def output_fish_script(self):
         return f"""
 for ii in (seq {self.leng})
-    http --continue --verbose --download --output "{self.index}_$ii.av.ts" '{self.build_url()}'
+    http --continue --verbose --download --output "{self.index}_$ii.av.ts" '{self.build_url()}' User-Agent:'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36'
 end
 
 for ii in (seq {self.leng})
